@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Course Overlap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+      .slidecontainer {
+        width: 100%;
+      }
+      
+      .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 25px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+      }
+      
+      .slider:hover {
+        opacity: 1;
+      }
+      
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        background: #04AA6D;
+        cursor: pointer;
+      }
+      
+      .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background: #04AA6D;
+        cursor: pointer;
+      }
+      </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="/">Course Overlap</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+
+
+    </ul>
+  </div>
+</nav>
+<br/>
+<br/>
+<br/>
+    <div class="container">
+        
+        <form method="POST" action="/process" class="col-12">
+          <div class="form-row">
+            <input type="text", placeholder="Select Course", name="search" class="form-control" id="city_autocomplete">
+          </div>
+			<br/>
+          <div class="form-row">
+            <label for="customRange1" class="form-label col-sm-3">ESA:</label>
+            <input type="range" min="1" max="100" value="50" class="slider col-sm-6" name="range1">
+          </div>
+      <br/>
+          <div class="form-row">
+            <label for="customRange2" class="form-label col-sm-3">Book Similarity:</label>
+            <input type="range" min="1" max="100" value="50" class="slider col-sm-6" name="range2">
+          </div>
+      <br/>
+          <div class="form-row">
+            <label for="customRange3" class="form-label col-sm-3">Prerequisite</label>
+            <input type="range" min="1" max="100" value="50" class="slider col-sm-6" name="range3">
+          </div>
+      <br/>
+          <div class="form-row">
+            <label for="customRange4" class="form-label col-sm-3">Other Courses:</label>
+            <input type="range" min="1" max="100" value="50" class="slider col-sm-6" name="range4">
+          </div>
+     <br/>
+          <div class="form-row">
+            <button type="reset" class="btn btn-primary"><i class="fa fa-eraser"></i> Clear</button>
+            <button type="submit" class="btn btn-info"><i class="fa fa-database"></i> Submit</button>
+         
+        </div>
+        </form>
+    </div>
+    <br/>
+    <div class="container">
+    	<div class="alert alert-success" role="alert">
+        <p class="alert-heading">Related Courses</p>
+        <!-- <p>Number of Records:{{num_of_results}}</p> -->
+        <!-- <ul>{% for i in results %}
+        	<li>{{i}}</li>
+        	{%endfor %}
+    	</ul> -->
+    	</div>
+    </div>
+
+    <script>
+      $(function() {
+          $.ajax({
+              url: '{{ url_for("autocomplete") }}'
+              }).done(function (data){
+                  $('#city_autocomplete').autocomplete({
+                      source: data,
+                      minLength: 2
+                  });
+              });
+          });
+  </script>
+    
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
+</body>
+</html>
