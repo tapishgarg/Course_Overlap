@@ -1,13 +1,17 @@
+from scipy.sparse import data
+from util import calculate_relatedness
 from flask import Flask, render_template, request, url_for, Response
 import os, json
+import numpy as np
 
 from phrase_extraction import phrase_extractor
+from esa import run_esa
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html", related_courses = {})
 
 @app.route('/_autocomplete', methods=['GET'])
 def autocomplete():
@@ -20,17 +24,17 @@ def autocomplete():
 def process():
     if request.method == 'POST':
 
-        range1 = request.form['range1']
-        print(range1)
-        range2 = request.form['range2']
-        print(range2)
-        range3 = request.form['range3']
-        print(range3)
-        range4 = request.form['range4']
-        print(range4)
+        esa_w = request.form['range1']
+        print(esa_w)
+        book_simi_w = request.form['range2']
+        print(book_simi_w)
+        course = request.form['search']
+        print(course)
 
-        # results = phrase_extractor(raw_text)
-    return render_template("index.html")
+        course_detail_path = "./data/course_data.json"
+        related_courses = calculate_relatedness(esa_w, book_simi_w, course_detail_path, course)
+    return render_template("index.html", esa_w = esa_w, book_simi_w = book_simi_w, related_courses = related_courses)
+
   
 
 if __name__ == "__main__":

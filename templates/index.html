@@ -89,16 +89,6 @@
             <label for="customRange2" class="form-label col-sm-3">Book Similarity:</label>
             <input type="range" min="1" max="100" value="50" class="slider col-sm-6" name="range2">
           </div>
-      <br/>
-          <div class="form-row">
-            <label for="customRange3" class="form-label col-sm-3">Prerequisite</label>
-            <input type="range" min="1" max="100" value="50" class="slider col-sm-6" name="range3">
-          </div>
-      <br/>
-          <div class="form-row">
-            <label for="customRange4" class="form-label col-sm-3">Other Courses:</label>
-            <input type="range" min="1" max="100" value="50" class="slider col-sm-6" name="range4">
-          </div>
      <br/>
           <div class="form-row">
             <button type="reset" class="btn btn-primary"><i class="fa fa-eraser"></i> Clear</button>
@@ -111,11 +101,14 @@
     <div class="container">
     	<div class="alert alert-success" role="alert">
         <p class="alert-heading">Related Courses</p>
-        <!-- <p>Number of Records:{{num_of_results}}</p> -->
-        <!-- <ul>{% for i in results %}
-        	<li>{{i}}</li>
+        <ul>{% for key, value in related_courses.items() %}
+        	<li>{{key}}  ---------  {{value}}  </li>
         	{%endfor %}
-    	</ul> -->
+    	  </ul>
+
+        <p>ESA Weight :{{esa_w}}</p>
+        <p>Book Similarity Weight :{{book_simi_w}}</p>
+        
     	</div>
     </div>
 
